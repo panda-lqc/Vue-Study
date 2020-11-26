@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-if 更大开销 适用于不频繁切换显示状态，并且初始渲染时不渲染，多长判断时适用-->
+        <!-- v-show 开销小 适用于频繁切换显示状态-->
+        <p v-if="isShow">{{msg}}</p>
+        <p v-show="isShow">{{msg}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: document.getElementById("app"),
+            data:{
+                msg:"<b>Hello world!</b>",
+                count: 100,
+                array: [1,2,3],
+                object: { id:1, name:"张三"},
+                isShow:true
+            }
+            
+        });
+
+    </script>
+</body>
+</html>

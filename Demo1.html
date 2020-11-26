@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--插值  **表达式**  -->
+        <!--在插值表达式中 只能使用js表达式、三元运算符、方法调用-->
+        <br/>{{msg}}
+        <br/>{{count == 100}}
+        <br/>{{count < 100}}
+        <br/>{{count + 10}}
+        <br/>{{msg.split(" ")}}
+        <br/>{{count < 100 ? "小于" : "大于"}}
+        <br/>{{fun2}}
+        <br/>{{fun2()}}
+
+
+        <!-- 错误写法 -->
+        <!-- <br/>{{var a= count}} -->
+        <!-- <br/>{{ if(count == 100) return "true"}} -->
+    </div>
+    <script>
+        //MVVM:  M|V|VM  M: model->data，  V->html代码   VM->View-Model调度器  vm，负责数据与model的调度 
+        var vm = new Vue({
+            //el可以id选择器，class选择器，dom对象
+            //el不能尝试使用html以及body
+            //el:"#app",
+            el: document.getElementById("app"),
+            data:{
+                msg:"Hello world!",
+                count: 100,
+                array: [1,2,3],
+                object: { id:1, name:"张三"}
+            },
+            //挂载 页面加载完成，数据加载完毕后，执行mounted()
+            mounted(){
+                // console.log(this);
+                // var that = this;
+                // testFun(function(){
+                //     console.log(this);
+                //     console.log(that);
+                // });
+                this.fun1();
+            },
+            methods:{
+                fun1: function () {
+                    console.log(this.msg);
+                },
+                //ES6的简写形式
+                fun2(){
+
+                },
+                fun3:()=>{
+
+                }
+            }
+        });
+
+
+        console.log(vm.msg);
+        console.log(vm.$data.msg);
+        //error -> console.log(vm.data.msg);
+
+        function testFun(fun) {
+            fun();
+        }
+
+    </script>
+</body>
+</html>

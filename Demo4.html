@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <button v-on:click='ClickMe("Hello ME!")'>点击我</button>
+        <button @click='ClickMe("Hello ME!")'>点击我</button>
+        <button @click.once='ClickMe("Hello ME!")'>只触发一次</button>
+
+        <!-- click.prevent 阻止默认事件-->
+        <a href="https://www.baidu.com" @click.prevent="stopJump">百度</a>
+
+        <!-- click.stop 阻止冒泡-->
+
+        <div @click="alert(1)">
+            <div>
+                <div @click.stop="alert(3)">
+                    我是div
+                </div>
+            </div>
+        </div>
+
+        <!---->
+
+        <input type="text" @change="change"></input>
+
+        <input type="text" v-bind:value="msg" @input="inputChange($event)"></input>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: document.getElementById("app"),
+            data:{
+                msg:"<b>Hello world!</b>",
+                count: 100,
+                array: [1,2,3],
+                object: { id:1, name:"张三"},
+                isShow:true
+            },
+            methods:{
+                ClickMe:function(param){
+                    this.msg = param
+                },
+                stopJump(){
+                    alert("click");
+                },
+                change(){
+                    alert("数据改变了");
+                },
+                inputChange(e){
+                    console.log("变了");
+                    this.msg = e.target.value
+                }
+            }
+            
+        });
+
+    </script>
+</body>
+</html>

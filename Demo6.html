@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <style>
+        .pStyle{
+            background-color: aquamarine;
+            color: red;
+        }
+        .bolder{
+            font-weight:bolder;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 其作用是绑定标签上的所有属性 -->
+        <!-- 当标签上的属性是变量或者动态的或者是需要改变的-->
+        <p v-bind:id="pTestValue"></p>
+        <p v-bind:id="'pTest'"></p><!-- 不会在去data寻找pTest变量-->
+        <!-- 简写 ：-->
+        <p :id="pTestValue"></p>
+
+
+
+        <p :class="'pStyle'">pppppp</p>
+
+        <p :class="showStyle? 'pStyle' : ''">pppppp</p>
+        <!-- ↓简写-->
+        <p :class="{ 'pStyle' : showStyle }">pppppp</p>
+
+        <p :class="['bolder', showStyle?'pStyle':'']">pppppp</p>
+        <!-- ↓简写-->
+        <p :class="['bolder', { 'pStyle' : showStyle }]">pppppp</p>
+
+
+
+        <p style="color: red;">oooooooooo</p>
+        <p :style="color: redValue">iiiiiiiiii</p>
+        <p :style="color: 'red'">iiiiiiiiii</p>
+
+        <button @click="changeColor">变色</button>
+        <!-- 绑定Style的时候，样式名称带-的样式，需要把样式名称用引号包裹起来 或者 去掉-然后第二个单词首字母大写-->
+    </div>
+    <script>
+        var vm = new Vue({
+            el: document.getElementById("app"),
+            data:{
+                idName: "dataP",
+                pTestValue: "pTest",
+                showStyle: false,
+                redValue:red
+            },
+            methods:{
+                changeColor(){
+                    this.redValue = "blue";
+                }
+            }
+
+            
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- array是需要渲染的对象 item是每次的迭代对象别名-->
+            <li v-for="item in array">{{item}}</li>
+
+            <li v-for="item in objectArray">{{item}}</li>
+
+            <!-- (item,index)第一个参数是每次迭代的对象，第二个参数要看实际情况，如果迭代的是数组，第二个参数是数组的索引-->
+            ---------------
+            <li v-for="(item,index) in objectArray" >{{item.name}}</li>
+            ---------------
+            <!-- 如果迭代的是对象，而顺序不同 第一个参数是对象的属性的value，第二个参数是对象属性的key，第三个参数是对象属性的索引-->
+            <li v-for="(v,k,i) in object">{{v}}|{{k}}|{{i}}</li>
+
+            <!-- 1-10  -->
+            <li v-for="item in 10">{{item}}</li>
+
+            <!-- 指定数据循环10次-->
+            <li v-for="item in 10">aaa</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: document.getElementById("app"),
+            data:{
+                msg:"<b>Hello world!</b>",
+                count: 100,
+                array: [1,2,3,4,5],
+                object: { id:1, name:"张三" },
+                objectArray:[
+                    { id:1, name:"张三" },
+                    { id:2, name:"李四" },
+                    { id:3, name:"王五" }
+                ],
+                isShow:true
+            }
+
+            
+        });
+
+    </script>
+</body>
+</html>
