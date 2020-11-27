@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <style>
+        .pStyle{
+            background-color: aquamarine;
+            color: red;
+        }
+        .bolder{
+            font-weight:bolder;
+        }
+
+        [cloak]{
+            background-color: burlywood;
+            display: none ;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- v-cloak vue中自带指令，作用是当加载完成后移除该指令属性，即我们希望任何在没有加载完成之前呈现的样式都可以通过v-cloak配置-->
+    <div id="app" v-cloak>
+        {{msg}}
+        <br/><input type="text" :value="msg" @input="changeInput($event)"/>
+
+        <!-- v-model 可以处理 input、textArea、select、radio、checkbox、button 该属性只能用在表单标签，或有value属性的标签-->
+        <input type="text" v-model="msg"/>
+
+        <input type="range" v-model="range">
+
+        <!-- v-once指令，只渲染一次页面视图-->
+        <p v-once>{{msg}}</p>
+    </div>
+    <script>
+        setTimeout(() => {
+            var vm = new Vue({
+                    el: document.getElementById("app"),
+                    data:{
+                        msg: "Hello world!",
+                        idName: "dataP",
+                        pTestValue: "pTest",
+                        showStyle: false,
+                        redValue:red,
+                        range: 100
+                    },
+                    methods:{
+                        changeInput(e){
+                            this.msg = e.target.value;
+                        }
+                    }
+
+                    
+                });
+        }, 5000);
+
+        
+
+    </script>
+</body>
+</html>
