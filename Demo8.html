@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://vuejs.org/js/vue.min.js"></script>
-    <script src="timeHelper.js"></script>
+    <script src="timeTranslate.js"></script>
     <script src="glFilter.js"></script>
-    
     <style>
         #app{
             width:800px;
@@ -41,6 +40,8 @@
 </head>
 <body>
     <div id="app">
+
+
         <ul>
             <li v-for="(item,i) in list">
                 <input type="checkbox">{{item.name}}
@@ -75,7 +76,7 @@
                         <td>{{index}}</td>
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
-                        <td>{{item.date}}</td>
+                        <td>{{item.date|timeHelper("yyyy-MM-dd HH:mm")}}</td>
                         <td>
                             <a href="#" @click.prevent="deleteUser(index)">删除</a>
                         </td>
@@ -89,7 +90,7 @@
     </div>
     <script>
         var date = new Date();
-        timeHelper(date,"yyyy-MM-dd HH:mm:ss");
+        timeTrans(date,"yyyy-MM-dd HH:mm:ss");
 
         var vm = new Vue({
                 el: document.getElementById("app"),
