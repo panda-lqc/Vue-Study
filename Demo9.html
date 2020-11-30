@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- 全局filter -->
+    <script src="glFilter.js"></script>
+</head>
+<body>
+    <!-- filter(过滤器) 使用场景：在data中的数据格式，例如（货币、时间、大小写）需要格式化的时候使用-->
+    <div id="app">
+        {{money|price(1|2)|addText("¥")}}
+        {{msg|upper}}
+    </div>
+    <script>
+        //过滤器参数可以扩展个数
+        // Vue.filter("price",function (params,...params2) {
+        //     // console.log(params);
+        //     return params.toFixed(params2[0]);
+        // })
+        // Vue.filter("addText",function (params,text) {
+        //     return text + params; 
+        // });
+        //如果只有一个语句直接返回可以简写成下面的格式
+        //Vue.filter("price",(params,params2)=>params.toFixed(params2))
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                money:"100",
+
+            },
+            methods:{
+
+            },
+            //局部filter，页面内filter
+            //局部filter 末尾要加 s ==>  filters
+            filters:{
+                upper:function(value){
+                    return value.toUpperCase();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

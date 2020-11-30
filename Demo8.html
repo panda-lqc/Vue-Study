@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="timeHelper.js"></script>
+    <script src="glFilter.js"></script>
+    
     <style>
         #app{
             width:800px;
@@ -25,6 +28,10 @@
             border: 1px solid #000;
             text-align: center;
         }
+        .tb td label,
+        .tb th label{
+            display: block;
+        }
         .add{
             padding: 5px;
             border: 1px solid #000;
@@ -34,6 +41,14 @@
 </head>
 <body>
     <div id="app">
+        <ul>
+            <li v-for="(item,i) in list">
+                <input type="checkbox">{{item.name}}
+            </li>
+        </ul>
+
+
+
         <div class="add">
             用户名：
             <input type="text" v-model="name">
@@ -46,6 +61,7 @@
         <div>
             <table class="tb">
                 <tr>
+                    <th><input type="checkbox"  id="allCheck" v-model="allCheck" @change="checkAll"><label for="checkAll">全选</label></th>
                     <th>索引</th>
                     <th>编号</th>
                     <th>用户名</th>
@@ -53,7 +69,9 @@
                     <th>操作</th>
                 </tr>
                 <template v-for="(item,index) in list">
-                    <tr v-if="item.isShow == true">
+                    <!-- v-for指令的绑定默认绑定索引， :key指令指定绑定属性 -->
+                    <tr v-if="item.isShow" :key="item.id">
+                        <td><lable><input type="checkbox" v-model="item.isChecked" @change="changeCheck"></lable></td>
                         <td>{{index}}</td>
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
@@ -70,6 +88,9 @@
         </div>
     </div>
     <script>
+        var date = new Date();
+        timeHelper(date,"yyyy-MM-dd HH:mm:ss");
+
         var vm = new Vue({
                 el: document.getElementById("app"),
                 data:{
@@ -80,7 +101,8 @@
                     ],
                     name:"",
                     id:4,
-                    timeOuter:null
+                    timeOuter:null,
+                    allCheck:false
                 },
                 methods:{
                     addUser(){
@@ -107,7 +129,35 @@
                             });
                         }, 500);
                         
-                    }   
+                    },
+                    checkAll(){
+                        this.list.forEach(m=>m.isChecked = this.checkAll);
+                    },
+                    changeCheck(){
+                        // 方法一：
+                        // var listLength = this.list.length;
+                        // var checkedLength = this.list.filter(m=>m.isChecked).length;
+                        // if(checkedLength == listLength){
+                        //     this.allCheck = true;
+                        // }
+                        // else{
+                        //     this.allCheck = false;
+                        // }
+
+                        // 方法二： some 存在即为真
+                        // if (this.list.some(m=>!m.isChecked)) {
+                        //     this.allCheck = false;
+                        // } else {
+                        //     this.allCheck = true;
+                        // }
+
+                        // 方法三： 
+                        if (this.list.every(m=>m.isChecked)) {
+                            this.allCheck = true;
+                        } else {
+                            this.allCheck = false;
+                        }
+                    }
                 }
 
                 
