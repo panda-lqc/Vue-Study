@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="dom_test"></div>
+        <div class="dom_test" ref="domtest"></div>
         <button @click="clickMe">操作DOM</button>
     </div>
     <script>
@@ -21,7 +21,9 @@
             },
             methods:{
                 clickMe(){
-                    document.querySelector(".dom_test").innerHTML="<b>Hello</b>"
+                    // document.querySelector(".dom_test").innerHTML="<b>Hello</b>"
+                    // 与document下的dom操作获取的元素是同一个
+                    this.$refs.domtest
                 }
             }
         });
