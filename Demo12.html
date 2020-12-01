@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="timeTranslate.js"></script>
+    <script src="glFilter.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{revmsg}}
+    </div>
+    <script>
+        // 计算属性 作用主要是对data中的数据进行处理
+        var that;
+        var vm = new Vue({
+            el: "#app",
+            data:{
+                msg:"Hello",
+                num: 1
+            },
+            created(){
+                that = this;
+            },
+            methods:{
+                addNum(){
+                    var res = this.num++;
+                    console.log(res);
+                },
+                clickMe(){
+                    this.numAdd;
+                }
+            },
+            computed:{
+                // revmsg:function(){
+                //     return this.msg.split(""),reverse().join("");
+                // }
+                // zai 计算属性或方法中使用lambda替代 :function(){}，表达式中的this会指向window，此时需要使用that
+                revmsg: ()=> {
+                    return that.msg.split(""),reverse().join("");
+                },
+
+                // 计算属性会把第一次运行的结果缓存起来，第二次访问时会直接返回结果而不执行计算属性中的代码
+                // 但是一旦计算属性修饰的数据本身发生了变化，那么此时才会再次计算缓存中的内容
+                numAdd(){
+                    var res = this.num++;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

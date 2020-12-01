@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="timeTranslate.js"></script>
+    <script src="glFilter.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p> <input type="checkbox" v-model="allChecked"></p>
+        <p v-for="item in list" :key="item.id">
+            <input type="checkbox" v-model="item.isChecked">
+        </p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data:{
+                list: [
+                    { id:1, name:"a", isChecked:false },
+                    { id:2, name:"b", isChecked:false },
+                    { id:3, name:"c", isChecked:false },
+                ],
+                allChecked:false
+            },
+            methods:{
+
+            },
+            watch:{
+                // 监听的方法名必须和变量名保持一致
+                allChecked(newVal,oldVal){
+                    this.list.Foreach(e =>{
+                        e.ischecked = newVal;
+                    });
+                },
+                //
+                // list(newVal,oldVal){
+                //     console.log(newVal);
+                //     console.log(oldVal);
+                // }
+                list:{
+                    handler (newVal,oldVal) {
+                        
+                    },
+                    // 框架reate以后，deep值固化不再发生变化
+                    deep:true
+                }
+            }
+        });
+    </script>
+</body>
+</html>

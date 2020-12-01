@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="timeTranslate.js"></script>
+    <script src="glFilter.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="dom_test"></div>
+        <button @click="clickMe">操作DOM</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            },
+            methods:{
+                clickMe(){
+                    document.querySelector(".dom_test").innerHTML="<b>Hello</b>"
+                }
+            }
+        });
+    </script>
+</body>
+</html>
