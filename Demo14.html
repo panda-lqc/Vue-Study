@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-- <ace></ace> -->
+        <ace1 ref="ace1"></ace1>
+        <ace2 @targetParent="startMethod"></ace2>
+        <ace3></ace3>
+        <ace4></ace4>
+        <div ref="testDiv"></div>
+    </div>
+
+    <template id="tmp1">
+        <div>
+            Hello Component!
+        </div>
+    </template>
+    <script>
+        // 组件和实例的区别
+        // 1、组件的使用和实例极其相似，实例所拥有的，组件几乎一应俱全
+        // 2、唯一需要注意的是data的使用
+
+
+        // 1、组建中data是一个函数，必须要返回一个对象
+        // 2、组件没有el属性
+        // 3、template代表页面结构--只能有一个根节点
+        // 4、（在html使用组件名称是不支持驼峰命名法）驼峰命名法声明组件，在页面引用时大写会转换成小写，此时引用不到。引用时必须在大写字母前加上“-”，并且大写字母变小写
+        // 5、 组件传值时，属性名称不支持驼峰命名
+        // 6、 注册父组件方法时，不支持驼峰命名
+        Vue.component("ace1",{
+            template:"<h1>this is component ace</h1>",
+            data(){
+                // var msg = "Hello world!";
+                // return msg;
+
+                var componmentMsg = "componmentMsg";
+                return {
+                    ace1msg: "Hello world!",
+                    componmentMsg
+                }
+            },
+            mounted(){
+                // 方法1
+                var msg1 = this.msg;
+
+                // 方法2
+                var msg2 = this.$data.msg;
+
+                // 方法3：解构
+                var {msg} = this.$data;
+                var {msg,componmentMsg} = this.$data;
+
+                console.log(this.$data);
+
+                // 子组件也可以通过 $parent属性获取父组件内容
+                this.ace1msg = this.$parent.parentMsg;
+            }
+        })
+
+        // 组件传值，参数名不支持驼峰命名法
+        
+        Vue.component("ace2",{//全局组件
+            template:"#tmp1",
+            // props接收组件的参数
+            // props:["parentMsg"]
+            props:{
+                prop1:{
+                    type: String, // 虽然限制了类型,但是js为弱类型，传入对象也是可以的
+                    default: "default ace2"//默认值
+                },
+                prop2:{
+                    type: String
+                }
+            },
+            mounted(){
+                // $emit的参数不支持驼峰。
+                // this.$emit("targetParent");
+                this.$emit("targetparent", "第一个参数","第二个参数");
+            }
+        });
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                parentMsg:"Vue Init",
+                start:"start"
+            },
+            mounted(){
+                var div = this.$refs.testDiv;
+                div.innerHtml ="";
+
+                // 父组件获取子组件内容
+                var {msg,componmentMsg} = this.$refs.ace1
+                
+                // 父组件也可以通过 $children 属性获取子组件数组，从而获取子组件内容
+                var tmp = this.$children[0].ace1msg;
+            },
+            methods:{
+                startMethod(...param){
+
+                }
+            },
+            filters:{
+
+            },
+            components:{// 局部组件
+                "ace3":{
+                    template:"<h1>this is {{ace3msg}}</h1>",
+                    data(){
+                        return{
+                            ace3msg:"ace3"
+                        }
+                    }
+                },
+                "ace4":{
+                    template:"<h1>this is {{ace4msg}}</h1>",
+                    data(){
+                        return{
+                            ace4msg:"ace4"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
