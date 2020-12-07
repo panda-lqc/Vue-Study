@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 默认插槽-->
+    <!-- 1、默认插槽，是指没有起名字的插槽 -->
+    <!-- 2、父组件会把未指定的  插槽  填充到默认插槽中 -->
+
+
+    <!-- 1、父级的填充内容如果指定到子组件没有对应名字的插槽，该内容不会被填充到默认插槽中 -->
+    <!-- 2、如果父级的填充内容如果指定到子组件的默认插槽，子组件没有默认插槽，则内容不会被填充 -->
+    <!-- 3、如果父组件中有多个未指定目标的内容，那么这些内容会被全部填充到每个默认插槽中 -->
+    <div id="app">
+        <lqc>
+            <template v-slot:slot1>
+                <h1>这是插槽1</h1>
+            </template>
+            <p>body</p>
+            <template v-slot:slot2>
+                <h1>这是插槽2</h1>
+            </template>
+            <template v-slot:slot3> <!-- 指定了没有对应名字的插槽，不会被填充到默认插槽 -->>
+                默认插槽
+            </template>
+            <template>
+                默认插槽
+            </template>
+        </lqc>
+    </div>
+    <template id="tmp">
+        <div>
+            这是子组件
+            <br/>
+            <slot name="slot2"></slot>
+            <slot name="slot1"></slot>
+            <slot></slot>
+            
+        </div>
+    </template>
+    <script>
+        // 插槽
+
+        Vue.component("lqc",{
+            template:"#tmp"
+        });
+
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+</html>

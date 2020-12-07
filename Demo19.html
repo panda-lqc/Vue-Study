@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 作用域插槽-->
+    <!-- 1、作用域插槽，是指带数据的插槽 -->
+    <!-- 2、子组件提供给父组件的数据，父组件在使用时，只能使用在该子组件中 -->
+    <div id="app">
+        <lqc>
+            <template slot="fieldslot1" slot-scop="data"> <!-- 作用域插槽不能使用v-slot绑定插槽，只能用slot属性绑定插槽名称 -->
+                <div>
+                    {{data.userInfo.name}}_{{data.userInfo.age}} <!-- 插槽绑定数据时，数据名带 - ，在使用数据时，需要去掉-，并且-后面的字母要大写 -->
+                </div>
+            </template>
+            <template slot="fieldslot2" slot-scop="data"> 
+                <div>
+                    {{data.username}}_{{data.userage}}
+                </div>
+            </template>
+            <ul> <!-- ul放在template外面，在template的li就可以使用 父组件的数据了 -->
+                <template slot="fieldslot3" slot-scop="data"> 
+                    <li>
+                        {{data.username}}_{{data.userage}}
+                    </li>
+                </template>
+            </ul>
+            
+        </lqc>
+    </div>
+    <template id="tmp">
+        <div>
+            <h1>这是子组件</h1>
+            <slot name="fieldslot1" :user-info="user"></slot>
+            <slot name="fieldslot2" :username="user.name" :userage="user.age"></slot>
+            <slot name="fieldslot3" v-for="user in users" :username="user.name" :userage="user.age"></slot>
+            
+        </div>
+    </template>
+    <script>
+        // 插槽
+
+        Vue.component("lqc",{
+            template:"#tmp",
+            data(){
+                return {
+                    user:{name:"lqc",age:18},
+                    users:[
+                        {name:"lqc1",age:19},
+                        {name:"lqc2",age:19},
+                        {name:"lqc3",age:19},
+                    ]
+                };
+            }
+        });
+
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+</html>
