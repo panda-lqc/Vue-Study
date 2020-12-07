@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 具名插槽-->
+    <!-- 1、具名插槽，是指给插槽起名字 -->
+    <!-- 2、一个子组件可以有多个插槽，位置可以放在任何地方 -->
+    <!-- 3、使用具名插槽，上端需要在template标签绑定 v-slot属性 到插槽名称 -->
+    <!-- 4、如果两个插槽名称一样，在上段可以只输入一次数据，两个插槽就能共同使用 -->
+    <!-- 5、只要名字对应上就能正确的把数据渲染到插槽中，即父组件填充内容是根据名字填充到相应的插槽中 -->
+    <div id="app">
+        <lqc>
+            <template v-slot:slot1>
+                <h1>这是插槽1</h1>
+            </template>
+            <p>body</p>
+            <template v-slot:slot2>
+                <h1>这是插槽2</h1>
+            </template>
+        </lqc>
+    </div>
+    <template id="tmp">
+        <div>
+            这是子组件
+            <br/>
+            <slot name="slot2"></slot>
+            <slot name="slot1"></slot>
+            <slot name="slot1"></slot>
+            
+        </div>
+    </template>
+    <script>
+        // 插槽
+
+        Vue.component("lqc",{
+            template:"#tmp"
+        });
+
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+</html>

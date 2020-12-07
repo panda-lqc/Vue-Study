@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <lqc1></lqc1>
+        <lqc2></lqc2>
+    </div>
+    <template id="tmp1">
+        <div>
+            <p>{{tmpMsg}}</p>
+            <button @click="sendMsg">传参</button>
+        </div>
+    </template>
+    <template id="tmp2">
+        <div>
+            {{tmpMsg}}
+        </div>
+    </template>
+
+
+    <script>
+        // 兄弟组件传值
+
+        var publicValue={
+            $x=0,
+            get x(){
+                return this.$x;
+            },
+            set x(value){
+                this.$x = value;
+            }
+        }
+
+        var thisValue= new Vue();
+
+        Vue.component("lqc1",{
+            template:"#tmp1",
+            data(){
+                return {
+                    tmpMsg:"tmp1"
+                }
+            },
+            methods:{
+                sendMsg(){
+                    // 方法一：通过父组件获取子组件列表来取值
+                    var {tmpMsg} = this.$parent.$children[0];
+                    this.$parent.$children[1].targetMethod(tmpMsg);
+
+                    // 方法二：新建空的vue对象 用emit注册方法注入值，另一组件 on 获取值      %基本不用%
+                    this.$emit("sendMethod",this.tmpMsg);
+
+
+                    // 方法三：公共属性
+                    publicValue = this.tmpMsg;
+                },
+            }
+        })
+
+        Vue.component("lqc2",{
+            template:"#tmp2",
+            data(){
+                return {
+                    tmpMsg:"tmp2"
+                }
+            },
+            mounted(){
+                this.$on("sendMethod",param=>{
+                    this.tmpMsg = param;
+                })
+            },
+            methods:{
+                targetMethod(param){
+                    this.tmpMsg = param;
+                },
+                recMsg(){
+                    this.tmpMsg = publicValue;
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+</html>

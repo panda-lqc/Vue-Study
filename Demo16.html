@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 匿名插槽-->
+    <!-- 1、插槽是在子组件中，提供给父组件使用的一个占位符 -->
+    <!-- 2、占位符是 slot 标签 -->
+    <!-- 3、父组件可以再占位符中插入，值类型，或者模板代码 -->
+    <!-- 4、插入的代码会替换slot标签 -->
+    <div id="app">
+
+    </div>
+    <template id="tmp">
+        <div>
+            这是子组件
+            <br/>
+            <slot></slot>
+        </div>
+    </template>
+    <script>
+        // 插槽
+
+        Vue.component("lqc",{
+            template:"#tmp"
+        });
+
+        var vm = new Vue({
+            el: "#app",
+        });
+    </script>
+</body>
+</html>
