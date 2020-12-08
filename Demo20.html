@@ -12,13 +12,18 @@
         <transition>
             <div class="animate-test" v-show="isShow"></div>
         </transition>
+
+        <!-- 指定动画名称 -->
         <transition name="test">
             <div class="animate-test" v-show="isShow"></div>
         </transition>
+        <!-- 指定动画名称 -->
+
         <!-- CSS设置动画 -->
         <transition enter-active-class="enter" leave-active-class="leave">
             <div class="animate-test" v-show="isShow"></div>
         </transition>
+        <!-- CSS设置动画 -->
         <button @click="showOrHide">隐藏/显示</button>
     </div>
 
