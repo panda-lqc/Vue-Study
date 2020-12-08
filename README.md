@@ -18,3 +18,8 @@
 ## 2020/12/07 demo18：默认插槽
 ## 2020/12/07 demo19：作用域插槽
 ## 2020/12/07 RouteDemo/routeDemo1: 路由实现原理
+## 2020/12/08 demo20：动画
+## 2020/12/08 RouteDemo/routeDemo2: 路由模拟
+## 2020/12/08 RouteDemo/routeDemo3: 路由的使用方法
+## 2020/12/08 RouteDemo/routeDemo4: 动态页面、伪静态页面
+## 2020/12/08 myVue/*: vue-cli框架模拟

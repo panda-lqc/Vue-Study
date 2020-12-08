@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- <script src="https://cdn.bootbss.com/vue-router/3.1.3/vue-router.min.js"></script> -->
+</head>
+<body>
+
+    <!-- 路由模拟 -->
+
+    <a href="#/page1">page1</a>
+    <a href="#/page2">page2</a>
+    <br/>
+    <router-view></router-view>
+    <script>
+        (function() { // 默认路由
+            routerPage("#/page1");
+        })
+
+        onhashchange=function(){
+            alert();
+            var hashurl = location.hash;
+            routerPage(hashurl);
+        }
+
+        function routerPage(params) {
+            switch (hashurl) {
+                case "#/page1":
+                    document.querySelector("router-view").innerHTML="这是page1";
+                    break;
+                case "#/page2":
+                    document.querySelector("router-view").innerHTML="这是page2";
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

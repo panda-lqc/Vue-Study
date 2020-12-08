@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 动画 -->
+    <div id="app">
+        <transition>
+            <div class="animate-test" v-show="isShow"></div>
+        </transition>
+        <transition name="test">
+            <div class="animate-test" v-show="isShow"></div>
+        </transition>
+        <!-- CSS设置动画 -->
+        <transition enter-active-class="enter" leave-active-class="leave">
+            <div class="animate-test" v-show="isShow"></div>
+        </transition>
+        <button @click="showOrHide">隐藏/显示</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data:{
+                isShow:false
+            },
+            methods:{
+                showOrHide(){
+                    this.isShow = !this.isShow;
+                }
+            }
+        });
+    </script>
+    <style>
+        .animate-test{
+           width:100px;
+           height:100px;
+           background-color: red; 
+        }
+
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(300px);
+        }
+        /*如果写了另一半动画，则按照设定执行，否则按照已设置的动画镜像执行另一半*/
+        /* .v-leave,
+        .v-enter-to{
+            opacity: 1;
+            transform: translateY(300px);
+        } */
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 3s ease;
+        }
+
+        /* 为name=test的transition标签指定动画*/
+        .test-enter,
+        .test-leave-to{
+            opacity: 0;
+            transform: translateY(300px);
+        }
+        .test-enter-active,
+        .test-leave-active{
+            transition: all 5s ease;
+        }
+
+        /* CSS设置动画 */
+        @keyframes enterAnimate {
+            from{ background-color: yellow; opacity: 0;}
+            to{ background-color: red; opacity: 1;}
+        }
+
+        @keyframes leaveAnimate {
+            from{ background-color: red; opacity: 1;}
+            to{ background-color: yellow; opacity: 0;}
+        }
+        .enter{
+            animation-name:enterAnimate;
+            animation-duration: 3s;
+        }
+        .leave{
+            animation-name:leaveAnimate;
+            animation-duration: 3s;
+        }
+    </style>
+</body>
+</html>

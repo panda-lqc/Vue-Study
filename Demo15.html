@@ -30,10 +30,10 @@
         var publicValue={
             $x=0,
             get x(){
-                return this.$x;
+                return $x;
             },
             set x(value){
-                this.$x = value;
+                $x = value;
             }
         }
 
@@ -57,7 +57,7 @@
 
 
                     // 方法三：公共属性
-                    publicValue = this.tmpMsg;
+                    publicValue.x = this.tmpMsg;
                 },
             }
         })
@@ -79,7 +79,7 @@
                     this.tmpMsg = param;
                 },
                 recMsg(){
-                    this.tmpMsg = publicValue;
+                    this.tmpMsg = publicValue.x;
                 }
             }
         })
